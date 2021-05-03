@@ -1,0 +1,7 @@
+node_modules
+.DS_Store
+
+# compiled output
+/dist
+/dist/
+dist

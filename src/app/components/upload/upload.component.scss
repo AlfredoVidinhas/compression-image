@@ -1,0 +1,74 @@
+.upload{
+  display: flex;
+}
+
+.upload .column-1, .upload .column-2,
+.upload .column-2 .painel .drag-drop{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload .column-1{
+  width: 44vw;
+  height: 100vh;
+  background-color: var(--primary-color);
+  color: white;
+
+  span{
+    margin-top: 20px;
+    max-width: 380px;
+    text-align: center;
+    line-height: 30px;
+  }
+
+  img{
+    height: 290px;
+    margin-top: 60px;
+  }
+}
+
+.upload .column-2{
+  width: 56vw;
+  height: 100vh;
+  background-color: #F8F8F8;
+}
+
+.upload .column-2 .painel{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 485px;
+  height: 521px;
+  border-radius: 10px;
+  padding: 28px 32px;
+  color: var(--secondary-color);
+  -webkit-box-shadow: 0px 25px 40px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 25px 40px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 25px 40px 0px rgba(0,0,0,0.1);
+}
+
+.upload .column-2 .painel .drag-drop{
+  border: 1px dashed #D3D2D2;
+  height: 75%;
+
+  img{
+    height: 60px;
+  }
+
+  span{
+    max-width: 150px;
+    margin-top: 20px;
+    text-align: center;
+
+    a{
+      color: var(--primary-color);
+      cursor: pointer;
+
+      &:hover{
+        color: var(--primary-color-dark);
+      }
+    }
+  }
+}

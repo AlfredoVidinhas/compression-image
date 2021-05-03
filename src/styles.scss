@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: #E76755;
+  --primary-color-dark: #B75143;
+  --secondary-color: #202754;
+  --secondary-light-color: #475677;
+  --neutral-light-color: #F4F4F4;
+  --text-color: #333333;
+  --text-inverted-color: #FFFFFF;
+  --max-width: 1250px;
+}
+
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  // TODO: Remove this font
+  font-family: 'Poppins', sans-serif;
+  transition: 0.4s;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0.6em 1rem;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+  color: var(--text-inverted-color);
+  background-color: var(--primary-color);
+
+  &:hover{
+    background-color: var(--primary-color-dark);
+  }
+}
+
+h1 {
+  font-weight: 300;
+  font-size: 3rem;
+}
+h2 {
+  font-weight: 500;
+  font-size: 2rem;
+}
+h3 {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
