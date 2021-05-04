@@ -1,5 +1,5 @@
 <app-upload></app-upload>
 
 <div class="list-images">
-
+  <app-card *ngFor="let item of ListaImagens" [Image]="item.Imagem" [Tamanho]="item.Tamanho" [Percentagem]="item.Percentagem"></app-card>
 </div>
