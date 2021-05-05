@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <button [class.btn-desativa]="!isFileSelecionado" (click)="CriarPreview()">INICIAR COMPRESSÃO</button>
+      <button [class.btn-desativa]="!isFileSelecionado" [class.spinner]="isLoading" (click)="CriarPreview()">{{isLoading?'':'INICIAR COMPRESSÃO'}}</button>
     </div>
   </div>
 </div>

@@ -24,12 +24,17 @@ export class AppComponent implements OnInit {
   }
 
   ReceberImagens($events){
-    this.ListaImagens = $events.previews;
+    if($events){
+      this.ListaImagens = $events.previews;
 
-    var reader = new FileReader();
-    reader.readAsDataURL($events.original);
-    reader.onload = (_event) => {
-      this.OriginalImage = reader.result;
+      var reader = new FileReader();
+      reader.readAsDataURL($events.original);
+      reader.onload = (_event) => {
+        this.OriginalImage = reader.result;
+      }
+    }
+    else{
+      this.ListaImagens = null;
     }
   }
 

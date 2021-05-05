@@ -27,7 +27,7 @@ button {
   outline: none;
   cursor: pointer;
   font-weight: 500;
-  padding: 0.6em 1rem;
+  height: 39px;
   border-radius: 0.5rem;
   text-transform: uppercase;
   color: var(--text-inverted-color);
@@ -49,4 +49,24 @@ h2 {
 h3 {
   font-weight: 600;
   font-size: 1.2rem;
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid var(--secondary-color);
+  border-top-color: white;
+  animation: spinner .8s linear infinite;
 }

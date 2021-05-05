@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import Compressor from 'compressorjs';
 import { Preview } from 'src/app/model/preview.model';
@@ -10,13 +11,13 @@ import { Preview } from 'src/app/model/preview.model';
 })
 export class UploadComponent implements OnInit {
 
-  files: any[] = [];
   qualidades = [0.1, 0.2, 0.5, 0.7, 0.8, 0.9];
   fileUploaded: any;
   isFileSelecionado = false;
+  isLoading = false;
   @Output() listaFiles = new EventEmitter<any>();
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer, @Inject(DOCUMENT) private document) { }
 
   ngOnInit(): void {
   }
@@ -44,11 +45,11 @@ export class UploadComponent implements OnInit {
   Cancelar(){
     this.isFileSelecionado = false;
     this.fileUploaded = undefined;
-    this.files = [];
+    this.listaFiles.emit(null);
   }
 
   CriarPreview(){
-    let qualidade = 0.1;
+    this.isLoading = true;
     const compressPromises: Promise<Preview>[] = [];
 
     for(let i = 0; i < 6; i++){
@@ -58,6 +59,8 @@ export class UploadComponent implements OnInit {
     // wait until these properties are resolved and loop through the result
     Promise.all(compressPromises).then((compressedFiles) => {
       this.listaFiles.emit({original: this.fileUploaded, previews: compressedFiles});
+      this.isLoading = false;
+      this.ScrollDown();
     }).catch((error) => console.log('ooops :(', error))
   }
 
@@ -67,12 +70,22 @@ export class UploadComponent implements OnInit {
         new Compressor(this.fileUploaded, {
             quality: qualidade,
             success: (result) => {
-              const url = _result.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(result));
+              const url = URL.createObjectURL(result);
+              const Safeurl = _result.sanitizer.bypassSecurityTrustUrl(url);
               const tam = _result.formatBytes(result.size)
-              resolve(new Preview(url, tam, qualidade))//([result], file.name, {type: result.type}))
+              resolve(new Preview(Safeurl, tam, qualidade, _result.fileUploaded.name, url))//([result], file.name, {type: result.type}))
             },
             error: (error: Error) => reject(error)
         })
+    });
+  }
+
+  ScrollDown(){
+    const element = document.getElementById('lista');
+    console.log(element);
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
     });
   }
 
