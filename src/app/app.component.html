@@ -1,5 +1,14 @@
-<app-upload></app-upload>
+<app-upload (listaFiles)="ReceberImagens($event)"></app-upload>
 
-<div class="list-images">
-  <app-card *ngFor="let item of ListaImagens" [Image]="item.Imagem" [Tamanho]="item.Tamanho" [Percentagem]="item.Percentagem"></app-card>
+<div class="list-images" *ngIf="ListaImagens">
+  <app-card *ngFor="let item of ListaImagens" (comparar)="AbrirImagem($event)" [Image]="item.Imagem" [Tamanho]="item.Tamanho" [Percentagem]="item.Percentagem"></app-card>
+</div>
+
+<div class="preview" *ngIf="isPreviewVisible">
+  <span class="close" (click)="FecharImagem()">&times;</span>
+  <div class="legendas">
+    <span>Original</span>
+    <span>Comprimida</span>
+  </div>
+  <app-image-comparison *ngIf='images' [images]='images'></app-image-comparison>
 </div>

@@ -7,11 +7,25 @@
   <div class="column-2">
     <div class="painel">
       <h3>Upload Arquivos</h3>
-      <div class="drag-drop">
+
+      <div *ngIf="!isFileSelecionado" class="drag-drop" appDnd (fileDropped)="onFileDropped($event)">
         <img src="assets/icon-mais.svg" alt="">
-        <span>Arraste a imagem ou <a>Selecione</a></span>
+        <span>Arraste a imagem ou <a (click)="file.click()">Selecione</a></span>
+        <input #file type="file" accept="image/*" (change)="fileBrowseHandler($event.target.files)">
       </div>
-      <button>INICIAR COMPRESSÃO</button>
+
+      <div class="carregado" *ngIf="isFileSelecionado">
+        <div class="header">
+          <img src="assets/icon_close.svg" alt="" (click)="Cancelar()">
+        </div>
+        <div class="conteudo">
+          <img src="assets/icon_verificado.svg" alt="">
+          <span class="name">{{fileUploaded?.name}}</span>
+          <span>{{ formatBytes(fileUploaded?.size) }}</span>
+        </div>
+      </div>
+
+      <button [class.btn-desativa]="!isFileSelecionado" (click)="CriarPreview()">INICIAR COMPRESSÃO</button>
     </div>
   </div>
 </div>
