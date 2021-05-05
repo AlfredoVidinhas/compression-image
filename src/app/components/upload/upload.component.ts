@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import Compressor from 'compressorjs';
 import { Preview } from 'src/app/model/preview.model';
@@ -17,7 +16,7 @@ export class UploadComponent implements OnInit {
   isLoading = false;
   @Output() listaFiles = new EventEmitter<any>();
 
-  constructor(private sanitizer: DomSanitizer, @Inject(DOCUMENT) private document) { }
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
   }
@@ -60,7 +59,6 @@ export class UploadComponent implements OnInit {
     Promise.all(compressPromises).then((compressedFiles) => {
       this.listaFiles.emit({original: this.fileUploaded, previews: compressedFiles});
       this.isLoading = false;
-      this.ScrollDown();
     }).catch((error) => console.log('ooops :(', error))
   }
 
@@ -77,15 +75,6 @@ export class UploadComponent implements OnInit {
             },
             error: (error: Error) => reject(error)
         })
-    });
-  }
-
-  ScrollDown(){
-    const element = document.getElementById('lista');
-    console.log(element);
-    element.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
     });
   }
 

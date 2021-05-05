@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,10 @@ export class AppComponent implements OnInit {
     '/assets/image.jpg',
   ]
 
+  constructor(@Inject(DOCUMENT) private document){
+
+  }
+
   ngOnInit(): void {
   }
 
@@ -32,6 +37,8 @@ export class AppComponent implements OnInit {
       reader.onload = (_event) => {
         this.OriginalImage = reader.result;
       }
+
+      this.ScrollDown();
     }
     else{
       this.ListaImagens = null;
@@ -45,6 +52,15 @@ export class AppComponent implements OnInit {
 
   FecharImagem(){
     this.isPreviewVisible = false;
+  }
+
+  ScrollDown(){
+    const element = this.document.getElementById('lista');
+    console.log(element)
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end'
+    });
   }
 
 }
