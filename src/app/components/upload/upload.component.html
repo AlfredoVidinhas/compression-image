@@ -8,15 +8,22 @@
     <div class="painel">
       <h3>Upload Arquivos</h3>
 
-      <div *ngIf="!isFileSelecionado" class="drag-drop" appDnd (fileDropped)="onFileDropped($event)">
-        <img src="assets/icon-mais.svg" alt="">
-        <span>Arraste a imagem ou <a (click)="file.click()">Selecione</a></span>
+      <div *ngIf="showPainelPrincipal" class="drag-drop" appDnd (fileDropped)="onFileDropped($event)">
+        <img class="mais" src="assets/icon-mais.svg" alt="">
+        <span class="texto-selecionar">Arraste a imagem ou <a (click)="file.click()">Selecione</a></span>
         <input #file type="file" accept="image/*" (change)="fileBrowseHandler($event.target.files)">
+
+        <div class="linha"></div>
+
+        <div class="tirar-foto" (click)="openCamera()">
+          <img src="assets/icon_camera.svg" alt="">
+          <span>Tirar Fotografia</span>
+        </div>
       </div>
 
       <div class="carregado" *ngIf="isFileSelecionado">
         <div class="header">
-          <img src="assets/icon_close.svg" alt="" (click)="Cancelar()">
+          <img src="assets/icon_close.svg" alt="" (click)="CancelarFile()">
         </div>
         <div class="conteudo">
           <img src="assets/icon_verificado.svg" alt="">
@@ -25,7 +32,36 @@
         </div>
       </div>
 
-      <button [class.btn-desativa]="!isFileSelecionado" [class.spinner]="isLoading" (click)="CriarPreview()">{{isLoading?'':'INICIAR COMPRESSÃO'}}</button>
+      <div class="carregado-camera" *ngIf="webcamImage">
+        <div class="header">
+          <img src="assets/icon_close.svg" alt="" (click)="Cancelar()">
+        </div>
+
+        <div class="conteudo">
+          <img [src]="webcamImage.imageAsDataUrl" alt="">
+          <span>{{ formatBytes(fileCamera?.size) }}</span>
+        </div>
+      </div>
+
+      <div class="carregado-png" *ngIf="isPNG">
+        <div class="header">
+          <img src="assets/icon_close.svg" alt="" (click)="Cancelar()">
+        </div>
+
+        <div class="conteudo">
+          <div class="transicao">
+            <span>PNG ({{ formatBytes(fileUploaded?.size) }})</span>
+            <img src="assets/icon_seta_right.svg" alt="">
+            <span>JPG ({{ formatBytes(pngConvertedToJpg.file?.size) }})</span>
+          </div>
+          <img class="final-image" [src]="pngConvertedToJpg.image" alt="">
+          <span class="texto-footer">Clique <span class="baixar-imagem" (click)="DownloadBlob()">aqui</span> para baixar a image ou inicie a compressão</span>
+        </div>
+      </div>
+
+      <button [class.btn-desativa]="showPainelPrincipal" [class.spinner]="isLoading" (click)="CompressByOrigem()">{{isLoading?'':'INICIAR COMPRESSÃO'}}</button>
     </div>
   </div>
 </div>
+
+<app-take-foto *ngIf="showCamera" (getPicture)="handleImage($event)"></app-take-foto>

@@ -1,5 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
+
 
 @Component({
   selector: 'app-root',
@@ -19,7 +22,11 @@ export class AppComponent implements OnInit {
   public images: string[] = [
     '/assets/image.jpg',
     '/assets/image.jpg',
-  ]
+  ];
+
+  options: AnimationOptions = {
+    path: '/assets/sad.json',
+  };
 
   constructor(@Inject(DOCUMENT) private document){
 
@@ -30,8 +37,8 @@ export class AppComponent implements OnInit {
 
   ReceberImagens($events){
     if($events){
-      this.ListaImagens = $events.previews;
-
+      this.ListaImagens = $events.previews.filter(p => p != null);
+      console.log(this.ListaImagens)
       var reader = new FileReader();
       reader.readAsDataURL($events.original);
       reader.onload = (_event) => {
@@ -55,12 +62,13 @@ export class AppComponent implements OnInit {
   }
 
   ScrollDown(){
-    const element = this.document.getElementById('lista');
+    const element = this.document.getElementById('teste');
     console.log(element)
-    element.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end'
-    });
+    element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+  }
+
+  animationCreated(animationItem: AnimationItem): void {
+    console.log(animationItem);
   }
 
 }

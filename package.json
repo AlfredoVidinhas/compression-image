@@ -20,6 +20,9 @@
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
     "compressorjs": "^1.0.7",
+    "lottie-web": "^5.7.11",
+    "ngx-lottie": "^7.0.1",
+    "ngx-webcam": "^0.3.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

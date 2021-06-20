@@ -1,0 +1,14 @@
+<div class="header">
+  <span>Tirar Fotografia</span>
+  <span class="close">&times;</span>
+</div>
+
+<div class="content">
+  <webcam [height]="500" [width]="1000" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+  *ngIf="showWebcam" [switchCamera]="nextWebcamObservable"></webcam>
+  <img *ngIf="webcamImage" [src]="webcamImage.imageAsDataUrl" />
+</div>
+
+<div class="footer">
+  <button (click)="takeSnapshot()">Tirar Fotografia</button>
+</div>

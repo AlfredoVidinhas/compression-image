@@ -1,10 +1,16 @@
 <app-upload id="lista" (listaFiles)="ReceberImagens($event)"></app-upload>
 
-<div class="list-images" *ngIf="ListaImagens">
+<div class="list-images" *ngIf="ListaImagens && ListaImagens.length > 0">
   <app-card *ngFor="let item of ListaImagens" (comparar)="AbrirImagem($event)" [Name]="item.Name" [File]="item.File" [Image]="item.Imagem" [Tamanho]="item.Tamanho" [Percentagem]="(item.Percentagem)|percentagem"></app-card>
 </div>
 
-<div class="preview" *ngIf="isPreviewVisible">
+<div class="max-compression" *ngIf="ListaImagens && ListaImagens.length == 0">
+  <ng-lottie width="230px" [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+  <h3>Ooops! já não é possivel comprimir</h3>
+  <span>Tentar outra imagem</span>
+</div>
+
+<div id="teste" class="preview" *ngIf="isPreviewVisible">
   <span class="close" (click)="FecharImagem()">&times;</span>
   <div class="legendas">
     <span>Original</span>

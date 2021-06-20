@@ -8,6 +8,16 @@ import { CardComponent } from './components/card/card.component';
 import { DndDirective } from './dnd.directive';
 import { ComparisonModule } from './components/image-comparison/image-comparison.module';
 import { PercentagemPipe } from './pipes/percentagem.pipe';
+import { TakeFotoComponent } from './components/take-foto/take-foto.component';
+import { WebcamModule } from 'ngx-webcam';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+// Note we need a separate function as it's required
+// by the AOT compiler.
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -15,12 +25,15 @@ import { PercentagemPipe } from './pipes/percentagem.pipe';
     UploadComponent,
     CardComponent,
     DndDirective,
-    PercentagemPipe
+    PercentagemPipe,
+    TakeFotoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ComparisonModule
+    ComparisonModule,
+    WebcamModule,
+    LottieModule.forRoot({ player: playerFactory })
   ],
   providers: [],
   bootstrap: [AppComponent]

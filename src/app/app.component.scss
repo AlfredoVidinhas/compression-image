@@ -54,3 +54,22 @@
     cursor: pointer;
   }
 }
+
+.max-compression{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 210px 0;
+
+  h3{
+    margin-top: 30px;
+  }
+
+  span{
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 17px;
+    color: var(--primary-color);
+    margin-top: 10px;
+  }
+}
