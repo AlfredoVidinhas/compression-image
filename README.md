@@ -17,7 +17,7 @@
 
 ![Image](https://github.com/AlfredoVidinhas/compression-image/blob/main/image-compression.png)
 
-# DatePicker
+# Compression Image
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
 
